@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +35,7 @@ DAO
 
     public List<PlanetDto> getPlanetsDto(){
 //      Sposob 1.
-//      todo
+//
 
 //        List<PlanetDto> planetDtos = new ArrayList<>();
 //        planetRepository.findAll()
@@ -45,10 +46,45 @@ DAO
         //
        // return planetDtos;
 
-
         return planetRepository.findAll()
                 .stream()
                 .map(planetMapper::map)
                 .collect(Collectors.toList());
     }
+
+    public Planet addPlanet(PlanetDto planetDto){
+        return planetRepository.save(planetMapper.reverse(planetDto));
+    }
+
+    public void deletePlanet(String planetName){
+        planetRepository.deleteByPlanetName(planetName);
+    }
+
+    public void updatePlanet(PlanetDto planetDto) {
+        planetRepository
+                .findByPlanetName(planetDto.getPlanetName()).ifPresent(p -> {
+
+            p.setDistanceFromSun(planetDto.getDistanceFromSun());
+            p.setOneWayLightTimeToTheSun(planetDto.getOneWayLightTimeToTheSun());
+            p.setLengthOfYear(planetDto.getLengthOfYear());
+            p.setPlanetType(planetDto.getPlanetType());
+            p.setPlanetInfo(planetDto.getPlanetInfo());
+            p.setPlanetImage(planetDto.getPlanetImage());
+
+            planetRepository.save(p);
+        });
+
+    }
+       public List<PlanetDto> getPlanetsByDistanceFromSun(Long distance){
+          return planetRepository
+                  .findPlanetsByDistanceFromSun(distance)
+                  .stream()
+                  .map(planetMapper::map)
+                  .collect(Collectors.toList());
+
+        }
+
+
+
+
 }

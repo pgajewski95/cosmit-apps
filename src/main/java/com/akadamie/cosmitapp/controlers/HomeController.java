@@ -15,8 +15,14 @@ public class HomeController {
         this.planetService = planetService;
     }
 
+    @GetMapping("/")
+    public String getHomePage(){
+        return "index";
+
+    }
+
     @GetMapping("/planets")
-    public String homePage(Model model) {
+    public String getPlanetPage(Model model) {
         model.addAttribute("planets", planetService.getPlanetsDto());
         return "planets";
     }

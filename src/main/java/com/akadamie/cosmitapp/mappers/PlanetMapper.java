@@ -21,4 +21,17 @@ public class PlanetMapper implements Mapper<Planet, PlanetDto> {
                 .planetType(f.getPlanetType())
                 .build();
     }
+
+    @Override
+    public Planet reverse(PlanetDto to) {
+        return Planet.builder()
+                .planetName(to.getPlanetName())
+                .distanceFromSun(to.getDistanceFromSun())
+                .oneWayLightTimeToTheSun(to.getOneWayLightTimeToTheSun())
+                .lengthOfYear(to.getLengthOfYear())
+                .planetImage(to.getPlanetImage())
+                .planetInfo(to.getPlanetInfo())
+                .planetType(to.getPlanetType())
+                .build();
+    }
 }
