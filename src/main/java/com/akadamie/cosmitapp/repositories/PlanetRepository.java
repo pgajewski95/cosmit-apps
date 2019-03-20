@@ -14,8 +14,8 @@ import java.util.Optional;
 @Repository
 public interface PlanetRepository extends JpaRepository<Planet, Long> {
 
-       // @Query(value = "delete from planets where planet_name = ?1", nativeQuery = true) //SQL
-        @Query(value = "delete from Planet p where p.planetname = ?1", nativeQuery = true) //JPQL
+       @Query(value = "delete from planets where planet_name = ?1", nativeQuery = true) //SQL
+
         @Transactional
         @Modifying
         void deleteByPlanetName(String planetName);
