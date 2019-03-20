@@ -2,14 +2,11 @@ package com.akadamie.cosmitapp.services;
 
 import com.akadamie.cosmitapp.Models.Planet;
 import com.akadamie.cosmitapp.Models.dtos.PlanetDto;
-import com.akadamie.cosmitapp.commons.Mapper;
 import com.akadamie.cosmitapp.mappers.PlanetMapper;
 import com.akadamie.cosmitapp.repositories.PlanetRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

@@ -3,14 +3,26 @@ package com.akadamie.cosmitapp.mappers;
 
 
 import com.akadamie.cosmitapp.Models.Planet;
+import com.akadamie.cosmitapp.Models.Tag;
 import com.akadamie.cosmitapp.Models.dtos.PlanetDto;
-import com.akadamie.cosmitapp.commons.Mapper;
+import com.akadamie.cosmitapp.commons.swagger.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class PlanetMapper implements Mapper<Planet, PlanetDto> {
     @Override
     public PlanetDto map(Planet f) {
+
+        List<String> tags = f.getTags()
+                .stream()
+                .map(TagsToStringsList.INSTANCE)
+                .collect(Collectors.toList());
+
+
         return PlanetDto.builder()
                 .planetName(f.getPlanetName())
                 .distanceFromSun(f.getDistanceFromSun())
@@ -19,6 +31,7 @@ public class PlanetMapper implements Mapper<Planet, PlanetDto> {
                 .planetImage(f.getPlanetImage())
                 .planetInfo(f.getPlanetInfo())
                 .planetType(f.getPlanetType())
+                .tags(tags)
                 .build();
     }
 
@@ -33,5 +46,14 @@ public class PlanetMapper implements Mapper<Planet, PlanetDto> {
                 .planetInfo(to.getPlanetInfo())
                 .planetType(to.getPlanetType())
                 .build();
+    }
+
+    private enum TagsToStringsList implements Function<Tag, String> {
+        INSTANCE;
+
+        @Override
+        public String apply(Tag tag) {
+            return tag.getTitle();
+        }
     }
 }

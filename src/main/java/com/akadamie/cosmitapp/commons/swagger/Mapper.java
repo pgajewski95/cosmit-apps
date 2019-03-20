@@ -1,4 +1,4 @@
-package com.akadamie.cosmitapp.commons;
+package com.akadamie.cosmitapp.commons.swagger;
 
 
 import org.springframework.stereotype.Component;
